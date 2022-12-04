@@ -1,0 +1,35 @@
+.profile {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto 50px auto;
+  box-sizing: border-box;
+  /* border: 1px red solid; */
+}
+
+@media screen and (max-width: 984px) {
+  .profile {
+    padding-right: min(19px, 5%);
+    padding-left: min(19px, 5%);
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .profile {
+    margin: 0 auto 0;
+    display: block;
+    align-items: center;
+    padding: 0 19px;
+  }
+}
+/*
+  @media screen and (max-width: 568px) {
+    .profile {
+      margin: 0 auto 0;
+      display: block;
+      align-items: center;
+      padding: 0 19px;
+    }
+  } */
