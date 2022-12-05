@@ -1,6 +1,6 @@
 .element__like {
   width: 22px;
-  background-image: url(../../../images/heart-png.png);
+  background-image: url(../../../images/heart.svg);
   border: 0;
   margin: 0 5px 0 0;
   background-color: rgba(255, 255, 255, 0);
@@ -11,8 +11,11 @@
   flex-direction: row;
   align-content: space-between;
   cursor: pointer;
+  transition: opacity 1s, visibility 1s, transform 1s ease-in-out;
 }
 
 .element__like:hover {
-  opacity: .5;
+  opacity: .3;
+  visibility: .3;
+  transition: opacity 1s, visibility 1s, transform 1s ease-in-out;
 }

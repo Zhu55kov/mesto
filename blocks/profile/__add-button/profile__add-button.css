@@ -9,12 +9,17 @@
   background-position: center;
   background-repeat: no-repeat;
   /* overflow: hidden; */
+  cursor: pointer;
   background-color: #000;
   border: 2px #fff solid;
+  border-radius: 2px;
+  transition: opacity 1s, visibility 1s, transform 1s ease-in-out;
 }
 
 .profile__add-button:hover {
   opacity: .6;
+  visibility: .6;
+  transition: opacity 1s, visibility 1s, transform 1s ease-in-out;
 }
 
 @media screen and (max-width: 750px) {

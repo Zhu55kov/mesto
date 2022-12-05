@@ -7,10 +7,14 @@
   color: #fff;
   margin: 18px 0 0 0;
   border: none;
+  transition: opacity 1s, visibility 1s, transform 1s ease-in-out;
+  cursor: pointer;
 }
 
 .popup__form-button:hover {
   opacity: .8;
+  visibility: .6;
+  transition: opacity 1s, visibility 1s, transform 1s ease-in-out;
 }
 
 @media screen and (max-width: 568px) {
