@@ -4,9 +4,8 @@
   align-items: center;
   max-width: 880px;
   width: 100%;
-  margin: 0 auto 50px auto;
+  margin: 0 auto 53px auto;
   box-sizing: border-box;
-  /* border: 1px red solid; */
 }
 
 @media screen and (max-width: 984px) {
@@ -24,12 +23,4 @@
     padding: 0 19px;
   }
 }
-/*
-  @media screen and (max-width: 568px) {
-    .profile {
-      margin: 0 auto 0;
-      display: block;
-      align-items: center;
-      padding: 0 19px;
-    }
-  } */
+

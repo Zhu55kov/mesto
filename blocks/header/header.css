@@ -8,21 +8,19 @@
   box-sizing: border-box;
   width: 100%;
   margin: 45px auto 38.25px;
-  border-bottom: 1px rgba(255, 255, 255, 0.2) solid;
-  /* border: 1px red solid; */
+  border-bottom: 1px rgba(84, 84, 84, .7) solid;
 }
 
   @media screen and (max-width: 984px) {
-  .header {
-    margin-top: 28px;
-    padding: 0 27px;
-  }
+    .header {
+      margin-top: 28px;
+      padding: 0 27px;
+    }
   }
 
   @media screen and (max-width: 568px) {
-  .header {
-    /* padding: 0 16px; */
-    margin-bottom: 42px;
-    min-height: 56px;
-  }
+    .header {
+      margin-bottom: 42px;
+      min-height: 56px;
+    }
   }

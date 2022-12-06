@@ -11,11 +11,3 @@
     align-items: center;
   }
 }
-
-  @media screen and (max-width: 568px) {
-    .profile__avatar {
-      margin: 0 auto 22.5px auto;
-      display: block;
-      align-items: center;
-    }
-  }

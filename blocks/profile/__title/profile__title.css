@@ -13,7 +13,6 @@
 
 @media screen and (max-width: 750px) {
   .profile__title {
-    display: flex;
     align-content: center;
     flex-wrap: nowrap;
     font-size: 32px;
@@ -24,7 +23,7 @@
 @media screen and (max-width: 568px) {
   .profile__title {
     font-size: 27px;
-    line-height: 33px;
-    max-width: 210px;
+    line-height: auto;
+    max-width: 189px;
   }
 }
