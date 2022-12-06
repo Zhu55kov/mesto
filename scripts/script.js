@@ -5,8 +5,8 @@ const closeButton = page.querySelector(".popup__close");
 const profileTitle = page.querySelector(".profile__title");
 const profileSubtitle = page.querySelector(".profile__subtitle");
 const form = page.querySelector(".popup__form");
-const inputName = form.querySelector(".popup__input_form_name");
-const inputDescription = form.querySelector(".popup__input_form_description");
+const inputName = form.querySelector(".popup__input_info_name");
+const inputDescription = form.querySelector(".popup__input_data_name");
 
 function editForm() {
   inputName.value = profileTitle.textContent;
