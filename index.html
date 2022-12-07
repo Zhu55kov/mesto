@@ -15,7 +15,7 @@
       />
     </header>
     <main class="content">
-      <div class="profile">
+      <section class="profile">
         <img
           class="profile__avatar"
           src="./images/kusto-smiling.jpg"
@@ -35,7 +35,7 @@
           type="button"
           aria-label="Добавить"
         ></button>
-      </div>
+      </section>
       <section class="elements">
         <article class="element">
           <img
@@ -137,17 +137,15 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="popupForm">
           <input
-            class="popup__input popup__input_info_name"
+            class="popup__input popup__input_name_info"
             type="text"
-            value=""
             name="inputName"
             placeholder="Введите Ваше имя"
             required
           />
           <input
-            class="popup__input popup__input_data_name"
+            class="popup__input popup__input_name_data"
             type="text"
-            value=""
             name="inputDescription"
             placeholder="Введите специальность"
             required

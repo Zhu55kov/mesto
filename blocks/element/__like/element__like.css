@@ -15,6 +15,4 @@
 
 .element__like:hover {
   opacity: .3;
-  visibility: .3;
-  transition: opacity 1s, visibility 1s, transform 1s ease-in-out;
 }

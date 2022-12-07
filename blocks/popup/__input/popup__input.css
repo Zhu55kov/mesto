@@ -6,7 +6,7 @@
   padding-bottom: 8px;
   margin: 0 0 31px 0;
   font-size: 14px;
-  line-height: auto;
+  line-height: 16px;
 }
 
 @media screen and (max-width: 568px) {
