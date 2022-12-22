@@ -36,135 +36,61 @@
           aria-label="Добавить"
         ></button>
       </section>
-      <section class="elements">
-        <article class="element">
-          <img
-            class="element__photo"
-            src="./images/karachaevo-1088404.png"
-            alt="храм среди гор"
-          />
-          <div class="element__description">
-            <h2 class="element__title">Карачаевск</h2>
-            <button
-              class="element__like"
-              type="button"
-              aria-label="Нравится"
-            ></button>
-          </div>
-        </article>
-        <article class="element">
-          <img
-            class="element__photo"
-            src="./images/elbrus.png"
-            alt="на горизонте гора"
-          />
-          <div class="element__description">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button
-              class="element__like"
-              type="button"
-              aria-label="Нравится"
-            ></button>
-          </div>
-        </article>
-        <article class="element">
-          <img
-            class="element__photo"
-            src="./images/dombay.png"
-            alt="острый пик вершины"
-          />
-          <div class="element__description">
-            <h2 class="element__title">Домбай</h2>
-            <button
-              class="element__like"
-              type="button"
-              aria-label="Нравится"
-            ></button>
-          </div>
-        </article>
-        <article class="element">
-          <img
-            class="element__photo"
-            src="./images/karachaevo-1088404.png"
-            alt="храм среди гор"
-          />
-          <div class="element__description">
-            <h2 class="element__title">Карачаевск</h2>
-            <button
-              class="element__like"
-              type="button"
-              aria-label="Нравится"
-            ></button>
-          </div>
-        </article>
-        <article class="element">
-          <img
-            class="element__photo"
-            src="./images/elbrus.png"
-            alt="на горизонте гора"
-          />
-          <div class="element__description">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button
-              class="element__like"
-              type="button"
-              aria-label="Нравится"
-            ></button>
-          </div>
-        </article>
-        <article class="element">
-          <img
-            class="element__photo"
-            src="./images/dombay.png"
-            alt="острый пик вершины"
-          />
-          <div class="element__description">
-            <h2 class="element__title">Домбай</h2>
-            <button
-              class="element__like"
-              type="button"
-              aria-label="Нравится"
-            ></button>
-          </div>
-        </article>
-      </section>
+      <section class="elements"></section>
     </main>
     <footer class="footer">
       <p class="footer__mesto-copyright">&copy;&nbsp;2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
-      <div class="popup__content">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popupForm">
-          <input
-            class="popup__input popup__input_data_name"
-            type="text"
-            name="inputName"
-            placeholder="Введите Ваше имя"
-            required
-          />
-          <input
-            class="popup__input popup__input_data_job"
-            type="text"
-            name="inputDescription"
-            placeholder="Введите специальность"
-            required
-          />
+    <div class="popups"></div>
+    <template id="element">
+      <article class="element">
+        <img class="element__photo" src="" alt="" />
+        <div class="element__description">
+          <h2 class="element__title"></h2>
           <button
-            class="popup__form-button"
-            type="submit"
-            aria-label="Сохранить"
-          >
-            Сохранить
-          </button>
-        </form>
-        <button
-          class="popup__close"
-          type="button"
-          aria-label="Закрыть"
-        ></button>
+            class="element__like"
+            type="button"
+            aria-label="Нравится"
+          ></button>
+        </div>
+      </article>
+    </template>
+    <template id="popup">
+      <div class="popup">
+        <div class="popup__content">
+          <h2 class="popup__title"></h2>
+          <form class="popup__form" name="popupForm">
+            <input
+              class="popup__input popup__input_data_name"
+              type="text"
+              name="inputName"
+              placeholder=""
+              required
+            />
+            <!-- здесь предположительно я должен "навтыкать" недостающих элементов для попапа POPUP__CARD -->
+            <input
+              class="popup__input popup__input_data_job"
+              type="text"
+              name="inputDescription"
+              placeholder=""
+              required
+            />
+            <button
+              class="popup__form-button"
+              type="submit"
+              aria-label="Сохранить"
+            >
+              Сохранить
+            </button>
+          </form>
+          <button
+            class="popup__close"
+            type="button"
+            aria-label="Закрыть"
+          ></button>
+        </div>
       </div>
-    </div>
+    </template>
     <script src="./scripts/script.js"></script>
   </body>
 </html>
