@@ -8,9 +8,9 @@
   height: 32px;
   background-size: 32px 32px;
   position: absolute;
-  left: 438px;
-  bottom: 338px;
-  margin: 0;
+  top: -40px;
+  right: -40px;
+  margin: auto;
   padding: 0;
   transition: opacity 1s, visibility 1s, transform 1s ease-in-out;
   cursor: pointer;
@@ -23,7 +23,7 @@
 @media screen and (max-width: 568px) {
   .popup__close {
     background-size: 20px 20px;
-    left: 256px;
-    bottom: 329px;
+    top: -36px;
+    right: 0;
   }
 }

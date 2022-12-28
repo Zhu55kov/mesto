@@ -1,99 +1,164 @@
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
+// Находим в разметке содержательный блок и назыаем его page
 const page = document.querySelector(".page");
-const editButton = page.querySelector(".profile__edit-button");
-const popup = page.querySelector(".popup");
-const closeButton = page.querySelector(".popup__close");
+
+// Находим id #element и задаем переменную для шаблона
+const elementTemplate = page.querySelector("#element").content;
+
+// Находим место вставки новых элементов в html-разметке и задаем соответствующую переменную
+const elementsPlaces = page.querySelector(".elements");
+
+// Находим profile title и subtitle и назначаем переменные для них
 const profileTitle = page.querySelector(".profile__title");
 const profileSubtitle = page.querySelector(".profile__subtitle");
-// const form = page.querySelector('.popup__form');
-// const inputName = form.querySelector('.popup__input_data_name');
-// const inputDescription = form.querySelector('.popup__input_data_job');
 
-function editForm() {
-  inputName.value = profileTitle.textContent;
-  inputDescription.value = profileSubtitle.textContent;
-  popup.classList.add("popup_opened");
+// Находим кнопку редактирования профиля Жак-Ив Кусто и назначаем переменную для нее
+const editButton = page.querySelector(".profile__edit-button");
+
+// Находим кнопку добавления новой карточки нового места и назначаем переменную для нее
+const addButton = page.querySelector(".profile__add-button");
+
+// Находим кнопку закрытия попапа карточки Жак Ив Кусто и задаем переменную
+const closeButtonInfo = page.querySelector(".info-popup__close");
+
+// находим кнопку закрытия попапа добавления новой карточки нового места и задаем переменную
+const closeButtonCard = page.querySelector(".card-popup__close");
+
+// Попап инфо
+const infoPopup = page.querySelector(".info-popup");
+const infoPopupForm = infoPopup.querySelector(".info-popup__form");
+const infoPopupInputName = infoPopupForm.querySelector(
+  ".info-popup__input_form_name"
+);
+const infoPopupInputDescription = infoPopupForm.querySelector(
+  ".info-popup__input_form_description"
+);
+const infoPopupFormButton = infoPopupForm.querySelector(
+  ".info-popup__form-button"
+);
+const infoPopupFormTitle = infoPopup.querySelector(".info-popup__title");
+const infoPopupCloseButton = infoPopup.querySelector(".info-popup__close");
+
+// Попап добавления картинки;
+const cardPopup = page.querySelector(".card-popup");
+const cardPopupForm = cardPopup.querySelector(".card-popup__form");
+const cardPopupInputName = cardPopupForm.querySelector(
+  ".card-popup__input_form_name"
+);
+const cardPopupInputDescription = cardPopupForm.querySelector(
+  ".card-popup__input_form_description"
+);
+const cardPopupCloseButton = cardPopup.querySelector(".card-popup__close");
+
+// Функция создания 'скелета' любой карточки
+function anyCard(card) {
+  const userCardElement = elementTemplate
+    .querySelector(".element")
+    .cloneNode(true);
+
+  userCardElement.querySelector(".element__photo").src = card.link;
+  userCardElement.querySelector(".element__title").textContent = card.name;
+  userCardElement.querySelector(".element__photo").alt = card.name;
+
+  const like = userCardElement.querySelector(".element__like");
+  elLike(like);
+  const delButton = userCardElement.querySelector(".element__trash");
+  elDel(delButton);
+  const img = userCardElement.querySelector(".element__photo");
+  elImg(img);
+
+  return userCardElement;
 }
+// Попап и переменные для открытия/закрытия фотографии карточки места
+const photoPopup = page.querySelector(".photo-popup");
+const photoPopupFigcaption = photoPopup.querySelector(".popup__figcaption");
+const popupPhotograph = photoPopup.querySelector(".popup__photograph");
+const photoPopupClose = photoPopup.querySelector(".photo-popup__close");
 
-function closeForm() {
-  popup.classList.remove("popup_opened");
-}
-
-// function formSubmitHandler(event) {
-//   event.preventDefault();
-//   profileTitle.textContent = inputName.value;
-//   profileSubtitle.textContent = inputDescription.value;
-//   closeForm();
-// }
-
-// editButton.addEventListener("click", editForm);
-// closeButton.addEventListener("click", closeForm);
-// form.addEventListener("submit", formSubmitHandler);
-
-const elementTemplate = document.querySelector("#element").content;
-//нашли конкретный темплейт под айди элемент и взяли только его содержимое
-
-const elementInsert = page.querySelector(".elements");
-//Нашли в элементе пейдж место вставки всех карточек
-
-function insertCard() {
-  initialCards.forEach((el) => {
-    console.log(el.name);
-    console.log(el.link);
-
-    const userCardElement = elementTemplate
-      .querySelector(".element")
-      .cloneNode(true);
-    //клонировали шаблон карточки для заполнения содержимым
-
-    userCardElement.querySelector(".element__photo").src = el.link;
-    //находим место для вставки фото и 'приравниваем' как переменную к новому значению - которое = src ...
-    userCardElement.querySelector(".element__title").textContent = el.name;
-    //нашли место для вставки названия и 'приравниваем' как переменную к новому значению - которое =
-
-    elementInsert.append(userCardElement);
+function elImg(el) {
+  el.addEventListener("click", function (event) {
+    popupPhotograph.src = event.target.src;
+    popupPhotograph.alt = event.target.alt;
+    photoPopupFigcaption.textContent = event.target.alt;
+    openPopup(photoPopup);
   });
 }
-insertCard();
 
-// ниже пойдет скрипт для popup
+// функция добавления класса с ключом _active для чекбокса 'сердечко'
+function elLike(el) {
+  el.addEventListener("click", function (event) {
+    event.target.classList.toggle("element__like_active");
+  });
+}
 
-const cardTemplate = document.querySelector("#popup").content;
-//предположительно нашли темплейт ПОПАПА
+// Функция удаления карочки
+function elDel(el) {
+  el.addEventListener("click", function (event) {
+    event.target.closest(".element").remove();
+  });
+}
 
-const cardInsert = page.querySelector(".popup");
-//Нашли в секции HTML - пейдж - место вставки ЛЮБОГО из попапов (?) Поэтому название переменной ОК
+initialCards.forEach((el) => {
+  const fullCard = anyCard(el);
+  addCard(elementsPlaces, fullCard);
+});
 
-const cardForm = popup.querySelector(".popup__form");
+// Функция добавления новой каротчки в начало списка
+function addCard(place, card) {
+  place.prepend(card);
+}
 
-const form = popup.querySelector(".popup__form");
-console.log(cardForm);
-const inputName = form.querySelector(".popup__input_data_name");
-console.log(inputName);
-const inputDescription = form.querySelector(".popup__input_data_job");
+function formCardSubmitHandler(event) {
+  event.preventDefault();
+  const myCard = {
+    name: cardPopupInputName.value,
+    link: cardPopupInputDescription.value,
+  };
+  closePopup(cardPopup);
+
+  const fullCard = anyCard(myCard);
+  addCard(elementsPlaces, fullCard);
+}
+
+function editInfoForm(popup) {
+  infoPopupInputName.value = profileTitle.textContent;
+  infoPopupInputDescription.value = profileSubtitle.textContent;
+  openPopup(popup);
+}
+
+// Функция закрытия всех попапов
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+}
+// Функция окрытия всех попапов
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+}
+// Функция для редактирования данных пользователя
+function formInfoSubmitHandler(event) {
+  event.preventDefault();
+  profileTitle.textContent = infoPopupInputName.value;
+  profileSubtitle.textContent = infoPopupInputDescription.value;
+
+  closePopup(infoPopup);
+}
+
+// открывает infoPopup (с карандашом)
+editButton.addEventListener("click", () => editInfoForm(infoPopup));
+
+// закрывает infoPopup
+closeButtonInfo.addEventListener("click", () => closePopup(infoPopup));
+
+// сабмитит форму infoPopup с данными пользователя
+infoPopupForm.addEventListener("submit", formInfoSubmitHandler);
+
+// открывает cardPopup (с плюсом)
+addButton.addEventListener("click", () => openPopup(cardPopup));
+
+// закрывает cardPopup
+closeButtonCard.addEventListener("click", () => closePopup(cardPopup));
+
+// submit...
+cardPopupForm.addEventListener("submit", formCardSubmitHandler);
+
+// закрывает photoPopup
+photoPopupClose.addEventListener("click", () => closePopup(photoPopup));

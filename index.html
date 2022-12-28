@@ -41,10 +41,85 @@
     <footer class="footer">
       <p class="footer__mesto-copyright">&copy;&nbsp;2020 Mesto Russia</p>
     </footer>
-    <div class="popups"></div>
+    <div class="popup info-popup">
+      <div class="popup__content info-popup__content">
+        <h3 class="popup__title info-popup__title">Редактировать профиль</h3>
+        <form class="popup__form info-popup__form" name="infoPopupForm">
+          <input
+            class="popup__input info-popup__input_form_name"
+            type="text"
+            name="inputName"
+            placeholder="Ваше имя"
+            required
+          />
+          <input
+            class="popup__input info-popup__input_form_description"
+            type="text"
+            name="inputDescription"
+            placeholder="Род деятельности"
+            required
+          />
+          <button
+            class="popup__form-button info-popup__form-button"
+            type="submit"
+          >
+            Сохранить
+          </button>
+        </form>
+        <button
+          aria-label="Закрыть"
+          class="popup__close info-popup__close"
+          type="button"
+        ></button>
+      </div>
+    </div>
+    <div class="popup card-popup">
+      <div class="popup__content card-popup__content">
+        <h3 class="popup__title card-popup__title">Новое место</h3>
+        <form class="popup__form card-popup__form" name="cardPopupForm">
+          <input
+            class="popup__input card-popup__input_form_name"
+            type="text"
+            name="inputName"
+            placeholder="Название"
+            required
+          />
+          <input
+            class="popup__input card-popup__input_form_description"
+            type="text"
+            name="inputDescription"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <button
+            class="popup__form-button card-popup__form-button"
+            type="submit"
+          >
+            Создать
+          </button>
+        </form>
+        <button
+          aria-label="Закрыть"
+          class="popup__close card-popup__close"
+          type="button"
+        ></button>
+      </div>
+    </div>
+    <div class="popup photo-popup">
+      <figure class="popup__content-photograph">
+        <img class="popup__photograph" />
+        <figcaption class="popup__figcaption"></figcaption>
+        <button
+          aria-label="Закрыть"
+          class="popup__close photo-popup__close"
+          type="button"
+        ></button>
+      </figure>
+    </div>
     <template id="element">
       <article class="element">
-        <img class="element__photo" src="" alt="" />
+        <img class="element__photo" />
+        <button class="element__trash" type="button" aria-label="Удалить"></button>
         <div class="element__description">
           <h2 class="element__title"></h2>
           <button
@@ -55,42 +130,7 @@
         </div>
       </article>
     </template>
-    <template id="popup">
-      <div class="popup">
-        <div class="popup__content">
-          <h2 class="popup__title"></h2>
-          <form class="popup__form" name="popupForm">
-            <input
-              class="popup__input popup__input_data_name"
-              type="text"
-              name="inputName"
-              placeholder=""
-              required
-            />
-            <!-- здесь предположительно я должен "навтыкать" недостающих элементов для попапа POPUP__CARD -->
-            <input
-              class="popup__input popup__input_data_job"
-              type="text"
-              name="inputDescription"
-              placeholder=""
-              required
-            />
-            <button
-              class="popup__form-button"
-              type="submit"
-              aria-label="Сохранить"
-            >
-              Сохранить
-            </button>
-          </form>
-          <button
-            class="popup__close"
-            type="button"
-            aria-label="Закрыть"
-          ></button>
-        </div>
-      </div>
-    </template>
+    <script src="./scripts/cardsArray.js"></script>
     <script src="./scripts/script.js"></script>
   </body>
 </html>
