@@ -12,16 +12,16 @@ const profileTitle = page.querySelector(".profile__title");
 const profileSubtitle = page.querySelector(".profile__subtitle");
 
 // Находим кнопку редактирования профиля Жак-Ив Кусто и назначаем переменную для нее
-const editButton = page.querySelector(".profile__edit-button");
+const editionButton = page.querySelector(".profile__edit-button");
 
 // Находим кнопку добавления новой карточки нового места и назначаем переменную для нее
-const addButton = page.querySelector(".profile__add-button");
+const additionButton = page.querySelector(".profile__add-button");
 
 // Находим кнопку закрытия попапа карточки Жак Ив Кусто и задаем переменную
-const closeButtonInfo = page.querySelector(".info-popup__close");
+const closureButtonInfo = page.querySelector(".info-popup__close");
 
 // находим кнопку закрытия попапа добавления новой карточки нового места и задаем переменную
-const closeButtonCard = page.querySelector(".card-popup__close");
+const closureButtonForm = page.querySelector(".card-popup__close");
 
 // Попап инфо
 const infoPopup = page.querySelector(".info-popup");
@@ -50,21 +50,22 @@ const cardPopupInputDescription = cardPopupForm.querySelector(
 const cardPopupCloseButton = cardPopup.querySelector(".card-popup__close");
 
 // Функция создания 'скелета' любой карточки
-function anyCard(card) {
+function createAnyCard(card) {
   const userCardElement = elementTemplate
     .querySelector(".element")
     .cloneNode(true);
 
-  userCardElement.querySelector(".element__photo").src = card.link;
+  const userCardElementPhoto = userCardElement.querySelector(".element__photo");
+
+  userCardElementPhoto.src = card.link;
   userCardElement.querySelector(".element__title").textContent = card.name;
-  userCardElement.querySelector(".element__photo").alt = card.name;
+  userCardElementPhoto.alt = card.name;
 
   const like = userCardElement.querySelector(".element__like");
-  elLike(like);
+  addLikeSign(like);
   const delButton = userCardElement.querySelector(".element__trash");
-  elDel(delButton);
-  const img = userCardElement.querySelector(".element__photo");
-  elImg(img);
+  deleteElement(delButton);
+  addElementPhoto(userCardElementPhoto);
 
   return userCardElement;
 }
@@ -74,7 +75,7 @@ const photoPopupFigcaption = photoPopup.querySelector(".popup__figcaption");
 const popupPhotograph = photoPopup.querySelector(".popup__photograph");
 const photoPopupClose = photoPopup.querySelector(".photo-popup__close");
 
-function elImg(el) {
+function addElementPhoto(el) {
   el.addEventListener("click", function (event) {
     popupPhotograph.src = event.target.src;
     popupPhotograph.alt = event.target.alt;
@@ -84,21 +85,21 @@ function elImg(el) {
 }
 
 // функция добавления класса с ключом _active для чекбокса 'сердечко'
-function elLike(el) {
+function addLikeSign(el) {
   el.addEventListener("click", function (event) {
     event.target.classList.toggle("element__like_active");
   });
 }
 
 // Функция удаления карочки
-function elDel(el) {
+function deleteElement(el) {
   el.addEventListener("click", function (event) {
     event.target.closest(".element").remove();
   });
 }
 
 initialCards.forEach((el) => {
-  const fullCard = anyCard(el);
+  const fullCard = createAnyCard(el);
   addCard(elementsPlaces, fullCard);
 });
 
@@ -114,8 +115,9 @@ function formCardSubmitHandler(event) {
     link: cardPopupInputDescription.value,
   };
   closePopup(cardPopup);
+  cardPopupForm.reset();
 
-  const fullCard = anyCard(myCard);
+  const fullCard = createAnyCard(myCard);
   addCard(elementsPlaces, fullCard);
 }
 
@@ -140,25 +142,33 @@ function formInfoSubmitHandler(event) {
   profileSubtitle.textContent = infoPopupInputDescription.value;
 
   closePopup(infoPopup);
+  infoPopupForm.reset();
 }
 
 // открывает infoPopup (с карандашом)
-editButton.addEventListener("click", () => editInfoForm(infoPopup));
+editionButton.addEventListener("click", () => editInfoForm(infoPopup));
 
 // закрывает infoPopup
-closeButtonInfo.addEventListener("click", () => closePopup(infoPopup));
+closureButtonInfo.addEventListener("click", () => {
+  closePopup(infoPopup);
+  infoPopupForm.reset();
+});
 
 // сабмитит форму infoPopup с данными пользователя
 infoPopupForm.addEventListener("submit", formInfoSubmitHandler);
 
 // открывает cardPopup (с плюсом)
-addButton.addEventListener("click", () => openPopup(cardPopup));
+additionButton.addEventListener("click", () => openPopup(cardPopup));
 
 // закрывает cardPopup
-closeButtonCard.addEventListener("click", () => closePopup(cardPopup));
+closureButtonForm.addEventListener("click", () => {
+  closePopup(cardPopup);
+  cardPopupForm.reset();
+});
 
 // submit...
 cardPopupForm.addEventListener("submit", formCardSubmitHandler);
+// cardPopupForm
 
 // закрывает photoPopup
 photoPopupClose.addEventListener("click", () => closePopup(photoPopup));
