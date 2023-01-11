@@ -91,7 +91,7 @@ function addLikeSign(el) {
   });
 }
 
-// Функция удаления карочки
+// Функция удаления карточки
 function deleteElement(el) {
   el.addEventListener("click", function (event) {
     event.target.closest(".element").remove();
@@ -172,3 +172,12 @@ cardPopupForm.addEventListener("submit", formCardSubmitHandler);
 
 // закрывает photoPopup
 photoPopupClose.addEventListener("click", () => closePopup(photoPopup));
+
+enableValidation(validationConfig);
+function enableValidation({ formSelector, ...restConfig }) {
+  const formList = Array.from(document.querySelectorAll(formSelector));
+
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, restConfig)
+  })
+}

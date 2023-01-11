@@ -44,21 +44,33 @@
     <div class="popup info-popup">
       <div class="popup__content info-popup__content">
         <h3 class="popup__title info-popup__title">Редактировать профиль</h3>
-        <form class="popup__form info-popup__form" name="infoPopupForm">
+        <form
+          class="popup__form info-popup__form"
+          name="infoPopupForm"
+          novalidate
+        >
           <input
             class="popup__input info-popup__input-name"
+            id="input-name"
             type="text"
             name="inputName"
             placeholder="Ваше имя"
             required
+            minlength="2"
+            maxlength="40"
           />
+          <span class="popup__input-error input-name-error"></span>
           <input
             class="popup__input info-popup__input-description"
+            id="info-description"
             type="text"
             name="inputDescription"
             placeholder="Род деятельности"
             required
+            minlength="2"
+            maxlength="200"
           />
+          <span class="popup__input-error info-description-error"></span>
           <button
             class="popup__form-button info-popup__form-button"
             type="submit"
@@ -76,21 +88,31 @@
     <div class="popup card-popup">
       <div class="popup__content card-popup__content">
         <h3 class="popup__title card-popup__title">Новое место</h3>
-        <form class="popup__form card-popup__form" name="cardPopupForm">
+        <form
+          class="popup__form card-popup__form"
+          name="cardPopupForm"
+          novalidate
+        >
           <input
             class="popup__input card-popup__input-name"
+            id="card-title"
             type="text"
             name="inputName"
             placeholder="Название"
             required
+            minlength="2"
+            maxlength="200"
           />
+          <span class="popup__input-error card-title-error"></span>
           <input
             class="popup__input card-popup__input-src"
-            type="text"
+            id="card-src"
             name="inputDescription"
             placeholder="Ссылка на картинку"
             required
+            type="url"
           />
+          <span class="popup__input-error card-src-error"></span>
           <button
             class="popup__form-button card-popup__form-button"
             type="submit"
@@ -135,6 +157,7 @@
       </article>
     </template>
     <script src="./scripts/cardsArray.js"></script>
+    <script src="./scripts/validate.js"></script><span></span>
     <script src="./scripts/script.js"></script>
   </body>
 </html>

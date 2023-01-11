@@ -47,3 +47,7 @@
 @import url(../blocks/popup/__content-photograph/popup__content-photograph.css);
 @import url(../blocks/popup/__photograph/popup__photograph.css);
 @import url(../blocks/popup/__figcaption/popup__figcaption.css);
+@import url(../blocks/popup/__input-error/popup__input-error.css);
+@import url(../blocks/popup/__input/_error/popup__input_error_active.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_error.css);
+@import url(../blocks/popup/__form-button/_disabled/popup__form-button_disabled.css);
