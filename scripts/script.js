@@ -49,6 +49,12 @@ const cardPopupInputDescription = cardPopupForm.querySelector(
 );
 const cardPopupCloseButton = cardPopup.querySelector(".card-popup__close");
 
+const cardPopupFormButton = cardPopupForm.querySelector(".card-popup__form-button");
+
+const cardPopupFormInputs = Array.from(cardPopupForm.querySelectorAll(".popup__input"));
+
+const cardsPopupFormSpanTitle = cardPopupForm.querySelector(".card-title-error");
+
 // Функция создания 'скелета' любой карточки
 function createAnyCard(card) {
   const userCardElement = elementTemplate
@@ -108,8 +114,9 @@ function addCard(place, card) {
   place.prepend(card);
 }
 
-function formCardSubmitHandler(event) {
+function handleTheFormCardSubmitHandler(event) {
   event.preventDefault();
+
   const myCard = {
     name: cardPopupInputName.value,
     link: cardPopupInputDescription.value,
@@ -127,16 +134,49 @@ function editInfoForm(popup) {
   openPopup(popup);
 }
 
+function closePopupWithEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openPopup = document.querySelector('.popup_opened');
+    closePopup(openPopup);
+  }
+}
+
+function closePopupWithOverlay(evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    const openPopup = document.querySelector('.popup_opened');
+    closePopup(openPopup);
+  }
+}
+
 // Функция закрытия всех попапов
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', closePopupWithEsc);
+  document.removeEventListener('mouseup', closePopupWithOverlay);
 }
 // Функция окрытия всех попапов
 function openPopup(popup) {
+
   popup.classList.add("popup_opened");
+  document.addEventListener('keydown', closePopupWithEsc);
+  document.addEventListener('mouseup', closePopupWithOverlay);
 }
+
+function clearError(form) {
+
+  const formInputsList = Array.from(form.querySelectorAll('.popup__input'));
+  formInputsList.forEach((input) => {
+    input.classList.remove('popup__input_type_error');
+  })
+
+  const formSpansList = Array.from(form.querySelectorAll('.popup__input-error'));
+  formSpansList.forEach((span) => {
+    span.textContent = ''
+  })
+}
+
 // Функция для редактирования данных пользователя
-function formInfoSubmitHandler(event) {
+function handleTheFormInfoSubmitHandler(event) {
   event.preventDefault();
   profileTitle.textContent = infoPopupInputName.value;
   profileSubtitle.textContent = infoPopupInputDescription.value;
@@ -146,38 +186,38 @@ function formInfoSubmitHandler(event) {
 }
 
 // открывает infoPopup (с карандашом)
-editionButton.addEventListener("click", () => editInfoForm(infoPopup));
+editionButton.addEventListener("click", () => {
+  infoPopupForm.reset();
+  clearError(infoPopupForm);
+  editInfoForm(infoPopup);
+});
 
 // закрывает infoPopup
 closureButtonInfo.addEventListener("click", () => {
   closePopup(infoPopup);
-  infoPopupForm.reset();
+
 });
 
 // сабмитит форму infoPopup с данными пользователя
-infoPopupForm.addEventListener("submit", formInfoSubmitHandler);
+infoPopupForm.addEventListener("submit", handleTheFormInfoSubmitHandler);
 
 // открывает cardPopup (с плюсом)
-additionButton.addEventListener("click", () => openPopup(cardPopup));
+additionButton.addEventListener("click", () => {
+  cardPopupForm.reset();
+  clearError(cardPopupForm);
+  toggleButtonState(cardPopupFormInputs, cardPopupFormButton, validationConfig);
+  openPopup(cardPopup);
+});
 
 // закрывает cardPopup
 closureButtonForm.addEventListener("click", () => {
   closePopup(cardPopup);
-  cardPopupForm.reset();
 });
 
 // submit...
-cardPopupForm.addEventListener("submit", formCardSubmitHandler);
+cardPopupForm.addEventListener("submit", handleTheFormCardSubmitHandler);
 // cardPopupForm
 
 // закрывает photoPopup
 photoPopupClose.addEventListener("click", () => closePopup(photoPopup));
 
-enableValidation(validationConfig);
-function enableValidation({ formSelector, ...restConfig }) {
-  const formList = Array.from(document.querySelectorAll(formSelector));
-
-  formList.forEach((formElement) => {
-    setEventListeners(formElement, restConfig)
-  })
-}

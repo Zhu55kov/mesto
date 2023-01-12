@@ -35,6 +35,16 @@ function toggleButtonState(inputList, buttonElement, config) {
   }
 }
 
+function compareButtonState(buttonElement, config) {
+  if (infoPopupInputName.value === profileTitle.textContent && infoPopupInputDescription.value === profileSubtitle.textContent) {
+    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+};
+
 function setEventListeners(formElement, config) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
@@ -45,6 +55,17 @@ function setEventListeners(formElement, config) {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, config);
       toggleButtonState(inputList, buttonElement, config);
+      compareButtonState(buttonElement, config);
     })
   })
 }
+
+function enableValidation({ formSelector, ...restConfig }) {
+  const formList = Array.from(document.querySelectorAll(formSelector));
+
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, restConfig)
+  })
+}
+
+enableValidation(validationConfig);
