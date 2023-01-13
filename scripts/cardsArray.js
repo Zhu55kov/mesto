@@ -29,10 +29,12 @@ const initialCards = [
 // все настройки передаются при вызове
 
 const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__form-button',
-  inactiveButtonClass: 'popup__form-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input_error_active',
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__form-button",
+  inactiveButtonClass: "popup__form-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input_error_active",
+  infoTitle: ".profile__title",
+  infoSubtitle: ".profile__subtitle",
 };

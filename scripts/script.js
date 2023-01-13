@@ -17,12 +17,6 @@ const editionButton = page.querySelector(".profile__edit-button");
 // Находим кнопку добавления новой карточки нового места и назначаем переменную для нее
 const additionButton = page.querySelector(".profile__add-button");
 
-// Находим кнопку закрытия попапа карточки Жак Ив Кусто и задаем переменную
-const closureButtonInfo = page.querySelector(".info-popup__close");
-
-// находим кнопку закрытия попапа добавления новой карточки нового места и задаем переменную
-const closureButtonForm = page.querySelector(".card-popup__close");
-
 // Попап инфо
 const infoPopup = page.querySelector(".info-popup");
 const infoPopupForm = infoPopup.querySelector(".info-popup__form");
@@ -32,11 +26,6 @@ const infoPopupInputName = infoPopupForm.querySelector(
 const infoPopupInputDescription = infoPopupForm.querySelector(
   ".info-popup__input-description"
 );
-const infoPopupFormButton = infoPopupForm.querySelector(
-  ".info-popup__form-button"
-);
-const infoPopupFormTitle = infoPopup.querySelector(".info-popup__title");
-const infoPopupCloseButton = infoPopup.querySelector(".info-popup__close");
 
 // Попап добавления картинки;
 const cardPopup = page.querySelector(".card-popup");
@@ -47,13 +36,20 @@ const cardPopupInputName = cardPopupForm.querySelector(
 const cardPopupInputDescription = cardPopupForm.querySelector(
   ".card-popup__input-src"
 );
-const cardPopupCloseButton = cardPopup.querySelector(".card-popup__close");
 
-const cardPopupFormButton = cardPopupForm.querySelector(".card-popup__form-button");
+// находим все крестики проекта по универсальному селектору - спасибо ревьюеру за раскрытие мне глаз
+const closeButtons = document.querySelectorAll(".popup__close");
+const cardPopupFormButton = cardPopupForm.querySelector(
+  ".card-popup__form-button"
+);
+const cardPopupFormInputs = Array.from(
+  cardPopupForm.querySelectorAll(".popup__input")
+);
 
-const cardPopupFormInputs = Array.from(cardPopupForm.querySelectorAll(".popup__input"));
-
-const cardsPopupFormSpanTitle = cardPopupForm.querySelector(".card-title-error");
+// Попап и переменные для открытия/закрытия фотографии карточки места
+const photoPopup = page.querySelector(".photo-popup");
+const photoPopupFigcaption = photoPopup.querySelector(".popup__figcaption");
+const popupPhotograph = photoPopup.querySelector(".popup__photograph");
 
 // Функция создания 'скелета' любой карточки
 function createAnyCard(card) {
@@ -75,11 +71,6 @@ function createAnyCard(card) {
 
   return userCardElement;
 }
-// Попап и переменные для открытия/закрытия фотографии карточки места
-const photoPopup = page.querySelector(".photo-popup");
-const photoPopupFigcaption = photoPopup.querySelector(".popup__figcaption");
-const popupPhotograph = photoPopup.querySelector(".popup__photograph");
-const photoPopupClose = photoPopup.querySelector(".photo-popup__close");
 
 function addElementPhoto(el) {
   el.addEventListener("click", function (event) {
@@ -135,44 +126,51 @@ function editInfoForm(popup) {
 }
 
 function closePopupWithEsc(evt) {
-  if (evt.key === 'Escape') {
-    const openPopup = document.querySelector('.popup_opened');
+  if (evt.key === "Escape") {
+    const openPopup = document.querySelector(".popup_opened");
     closePopup(openPopup);
   }
 }
 
 function closePopupWithOverlay(evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-    const openPopup = document.querySelector('.popup_opened');
-    closePopup(openPopup);
+  if (evt.target.classList.contains("popup_opened")) {
+    closePopup(evt.target);
   }
 }
 
 // Функция закрытия всех попапов
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', closePopupWithEsc);
-  document.removeEventListener('mouseup', closePopupWithOverlay);
+  document.removeEventListener("keydown", closePopupWithEsc);
+  document.removeEventListener("mouseup", closePopupWithOverlay);
 }
+
+closeButtons.forEach((button) => {
+  // находим 1 раз ближайший к крестику попап
+  const popup = button.closest(".popup");
+  // устанавливаем обработчик закрытия на крестик
+  button.addEventListener("click", () => closePopup(popup));
+});
+
 // Функция окрытия всех попапов
 function openPopup(popup) {
-
   popup.classList.add("popup_opened");
-  document.addEventListener('keydown', closePopupWithEsc);
-  document.addEventListener('mouseup', closePopupWithOverlay);
+  document.addEventListener("keydown", closePopupWithEsc);
+  document.addEventListener("mouseup", closePopupWithOverlay);
 }
 
 function clearError(form) {
-
-  const formInputsList = Array.from(form.querySelectorAll('.popup__input'));
+  const formInputsList = Array.from(form.querySelectorAll(".popup__input"));
   formInputsList.forEach((input) => {
-    input.classList.remove('popup__input_type_error');
-  })
+    input.classList.remove("popup__input_type_error");
+  });
 
-  const formSpansList = Array.from(form.querySelectorAll('.popup__input-error'));
+  const formSpansList = Array.from(
+    form.querySelectorAll(".popup__input-error")
+  );
   formSpansList.forEach((span) => {
-    span.textContent = ''
-  })
+    span.textContent = "";
+  });
 }
 
 // Функция для редактирования данных пользователя
@@ -192,12 +190,6 @@ editionButton.addEventListener("click", () => {
   editInfoForm(infoPopup);
 });
 
-// закрывает infoPopup
-closureButtonInfo.addEventListener("click", () => {
-  closePopup(infoPopup);
-
-});
-
 // сабмитит форму infoPopup с данными пользователя
 infoPopupForm.addEventListener("submit", handleTheFormInfoSubmitHandler);
 
@@ -209,15 +201,6 @@ additionButton.addEventListener("click", () => {
   openPopup(cardPopup);
 });
 
-// закрывает cardPopup
-closureButtonForm.addEventListener("click", () => {
-  closePopup(cardPopup);
-});
-
 // submit...
 cardPopupForm.addEventListener("submit", handleTheFormCardSubmitHandler);
 // cardPopupForm
-
-// закрывает photoPopup
-photoPopupClose.addEventListener("click", () => closePopup(photoPopup));
-

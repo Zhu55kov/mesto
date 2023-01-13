@@ -26,7 +26,7 @@ function hasInvalidInput(inputList) {
 }
 
 function toggleButtonState(inputList, buttonElement, config) {
-  if (hasInvalidInput(inputList)) {
+  if (hasInvalidInput(inputList) || compareButtonState(inputList, config)) {
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.disabled = true;
   } else {
@@ -35,15 +35,14 @@ function toggleButtonState(inputList, buttonElement, config) {
   }
 }
 
-function compareButtonState(buttonElement, config) {
-  if (infoPopupInputName.value === profileTitle.textContent && infoPopupInputDescription.value === profileSubtitle.textContent) {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = true;
-  } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
-    buttonElement.disabled = false;
+function compareButtonState(inputList, config) {
+    infoTitle = document.querySelector(config.infoTitle);
+    infoSubtitle = document.querySelector(config.infoSubtitle);
+    const infoDataArr = [infoTitle.textContent, infoSubtitle.textContent]
+    const inputDataArr = inputList.map((el) => el.value);
+    return JSON.stringify(inputDataArr) === JSON.stringify(infoDataArr)
   }
-};
+
 
 function setEventListeners(formElement, config) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
@@ -55,7 +54,6 @@ function setEventListeners(formElement, config) {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, config);
       toggleButtonState(inputList, buttonElement, config);
-      compareButtonState(buttonElement, config);
     })
   })
 }
