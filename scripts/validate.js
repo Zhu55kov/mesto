@@ -21,10 +21,6 @@ function checkInputValidity(formElement, inputElement, config) {
   }
 }
 
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => !inputElement.validity.valid);
-}
-
 function toggleButtonState(inputList, buttonElement, config) {
   if (hasInvalidInput(inputList) || compareButtonState(inputList, config)) {
     buttonElement.classList.add(config.inactiveButtonClass);
@@ -36,13 +32,18 @@ function toggleButtonState(inputList, buttonElement, config) {
 }
 
 function compareButtonState(inputList, config) {
-    infoTitle = document.querySelector(config.infoTitle);
-    infoSubtitle = document.querySelector(config.infoSubtitle);
-    const infoDataArr = [infoTitle.textContent, infoSubtitle.textContent]
-    const inputDataArr = inputList.map((el) => el.value);
-    return JSON.stringify(inputDataArr) === JSON.stringify(infoDataArr)
-  }
+  const infoTitle = document.querySelector(config.infoTitle);
+  const infoSubtitle = document.querySelector(config.infoSubtitle);
+  const infoDataArr = [infoTitle.textContent, infoSubtitle.textContent]
+  const inputDataArr = inputList.map((el) => el.value);
+  return JSON.stringify(inputDataArr) === JSON.stringify(infoDataArr)
+}
 
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid || inputElement.value.length < 2
+  });
+}
 
 function setEventListeners(formElement, config) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
