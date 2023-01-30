@@ -1,11 +1,13 @@
-function showInputError(formElement, inputElement, config) {
+import { validationConfig } from './cardsArray.js';
+
+export function showInputError(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.classList.add(config.errorClass);
   errorElement.textContent = inputElement.validationMessage;
   inputElement.classList.add(config.inputErrorClass);
 }
 
-function hideInputError(formElement, inputElement, config) {
+export function hideInputError(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
   errorElement.classList.remove(config.errorClass);
@@ -13,7 +15,7 @@ function hideInputError(formElement, inputElement, config) {
   inputElement.classList.remove(config.inputErrorClass);
 }
 
-function checkInputValidity(formElement, inputElement, config) {
+export function checkInputValidity(formElement, inputElement, config) {
   if (inputElement.validity.valid) {
     hideInputError(formElement, inputElement, config);
   } else {
@@ -21,7 +23,7 @@ function checkInputValidity(formElement, inputElement, config) {
   }
 }
 
-function toggleButtonState(inputList, buttonElement, config) {
+export function toggleButtonState(inputList, buttonElement, config) {
   if (hasInvalidInput(inputList) || compareButtonState(inputList, config)) {
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.disabled = true;
@@ -31,7 +33,7 @@ function toggleButtonState(inputList, buttonElement, config) {
   }
 }
 
-function compareButtonState(inputList, config) {
+export function compareButtonState(inputList, config) {
   const infoTitle = document.querySelector(config.infoTitle);
   const infoSubtitle = document.querySelector(config.infoSubtitle);
   const infoDataArr = [infoTitle.textContent, infoSubtitle.textContent]
@@ -39,13 +41,13 @@ function compareButtonState(inputList, config) {
   return JSON.stringify(inputDataArr) === JSON.stringify(infoDataArr)
 }
 
-function hasInvalidInput(inputList) {
+export function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid || inputElement.value.length < 2
   });
 }
 
-function setEventListeners(formElement, config) {
+export function setEventListeners(formElement, config) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
@@ -59,7 +61,7 @@ function setEventListeners(formElement, config) {
   })
 }
 
-function enableValidation({ formSelector, ...restConfig }) {
+export function enableValidation({ formSelector, ...restConfig }) {
   const formList = Array.from(document.querySelectorAll(formSelector));
 
   formList.forEach((formElement) => {
@@ -67,4 +69,4 @@ function enableValidation({ formSelector, ...restConfig }) {
   })
 }
 
-enableValidation(validationConfig);
+export default enableValidation(validationConfig);
