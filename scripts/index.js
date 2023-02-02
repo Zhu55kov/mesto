@@ -1,7 +1,7 @@
 import Card from './Card.js';
 import { initialCards } from './cardsArray.js';
 import { validationConfig } from './cardsArray.js';
-import { showInputError, hideInputError, checkInputValidity, toggleButtonState, compareButtonState, hasInvalidInput, setEventListeners, enableValidation } from './validate.js';
+import FormValidator from './FormValidator.js';
 
 const page = document.querySelector('.page');
 
@@ -49,7 +49,7 @@ const photoPopupFigcaption = photoPopup.querySelector('.popup__figcaption');
 const popupPhotograph = photoPopup.querySelector('.popup__photograph');
 
 initialCards.forEach((el) => {
-  const fullCard = new Card(el, elementTemplate);
+  const fullCard = new Card(el, elementTemplate, openImagePopup);
   addCard(elementsPlaces, fullCard.getView());
 });
 
@@ -74,14 +74,14 @@ function handleTheFormCardSubmitHandler(event) {
   closePopup(cardPopup);
   cardPopupForm.reset();
 
-  const fullCard = new Card(myCard, elementTemplate);
+  const fullCard = new Card(myCard, elementTemplate, openImagePopup);
   addCard(elementsPlaces, fullCard.getView());
 }
 
 additionButton.addEventListener('click', () => {
   cardPopupForm.reset();
   clearError(cardPopupForm);
-  toggleButtonState(cardPopupFormInputs, cardPopupFormButton, validationConfig);
+  // toggleButtonState(cardPopupFormInputs, cardPopupFormButton, validationConfig);
   openPopup(cardPopup);
 });
 
@@ -145,14 +145,20 @@ editionButton.addEventListener('click', () => {
 // сабмитит форму infoPopup с данными пользователя
 infoPopupForm.addEventListener('submit', handleTheFormInfoSubmitHandler);
 
-function addElementPhoto(el) {
-  el.addEventListener('click', function (event) {
-    popupPhotograph.src = event.target.src;
-    popupPhotograph.alt = event.target.alt;
-    photoPopupFigcaption.textContent = event.target.alt;
-    openPopup(photoPopup);
-  });
+function openImagePopup (title, url) {
+  photoPopupFigcaption.textContent = title;
+  popupPhotograph.src = url;
+  popupPhotograph.alt = title;
+
+  openPopup(photoPopup);
 }
+
+// function addElementPhoto(el) {
+//     popupPhotograph.src = event.target.src;
+//     popupPhotograph.alt = event.target.alt;
+//     photoPopupFigcaption.textContent = event.target.alt;
+//     openPopup(photoPopup);
+// }
 ////////////
 function clearError(form) {
   const formInputsList = Array.from(form.querySelectorAll(".popup__input"));
@@ -167,6 +173,12 @@ function clearError(form) {
     span.textContent = "";
   });
 }
+
+const formInfoValidator = new FormValidator(validationConfig, infoPopupForm);
+formInfoValidator.enableValidation();
+
+const formCardValidator = new FormValidator(validationConfig, cardPopupForm);
+formCardValidator.enableValidation();
 
 
 

@@ -1,8 +1,9 @@
 class Card {
-  constructor({ name, link }, elementTemplate) {
+  constructor({ name, link }, elementTemplate, openImagePopup) {
     this._name = name;
     this._link2photo = link;
     this._elementTemplate = elementTemplate;
+    this._openPopup = openImagePopup;
     // this._description = description;
     // this._wastebasket = wastebasket;
     // this._like = like;
@@ -37,20 +38,30 @@ class Card {
     this._addLikeSign.classList.toggle("element__like_active");
   }
 
+  _photoPopup() {
+    this._openPopup(this._name, this._link2photo)
+  }
+
   _setEventListeners() {
-    this._delButton
-      .addEventListener("click", () => {
-        this._deleteCard();
-      });
-      this._addLikeSign.addEventListener("click", () => {
-        this._likeCard();
-      });
+    this._delButton.addEventListener("click", () => {
+      this._deleteCard();
+    });
+
+    this._addLikeSign.addEventListener("click", () => {
+      this._likeCard();
+    });
+
+    this._image.addEventListener('click', () => {
+      this._photoPopup();
+    });
   }
 
   getView() {
     this._newCard = this._getTemplate();
-    this._delButton = this._newCard.querySelector(".element__trash")
-    this._addLikeSign = this._newCard.querySelector(".element__like")
+    this._delButton = this._newCard.querySelector(".element__trash");
+    this._addLikeSign = this._newCard.querySelector(".element__like");
+    this._image = this._newCard.querySelector('.element__photo');
+   
     this._setName();
     this._getLink();
     this._getAlt();
