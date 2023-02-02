@@ -4,12 +4,7 @@ class Card {
     this._link2photo = link;
     this._elementTemplate = elementTemplate;
     this._openPopup = openImagePopup;
-    // this._description = description;
-    // this._wastebasket = wastebasket;
-    // this._like = like;
   }
-
-  // const userCardElement = this._elementTemplate.querySelector(".element").cloneNode(true);
 
   _getTemplate() {
     return this._elementTemplate.querySelector(".element").cloneNode(true);
@@ -39,7 +34,7 @@ class Card {
   }
 
   _photoPopup() {
-    this._openPopup(this._name, this._link2photo)
+    this._openPopup(this._name, this._link2photo);
   }
 
   _setEventListeners() {
@@ -51,7 +46,7 @@ class Card {
       this._likeCard();
     });
 
-    this._image.addEventListener('click', () => {
+    this._image.addEventListener("click", () => {
       this._photoPopup();
     });
   }
@@ -60,8 +55,8 @@ class Card {
     this._newCard = this._getTemplate();
     this._delButton = this._newCard.querySelector(".element__trash");
     this._addLikeSign = this._newCard.querySelector(".element__like");
-    this._image = this._newCard.querySelector('.element__photo');
-   
+    this._image = this._newCard.querySelector(".element__photo");
+
     this._setName();
     this._getLink();
     this._getAlt();
@@ -72,24 +67,3 @@ class Card {
 }
 
 export default Card;
-
-// generateCard() {
-//   this._element = this._getTemplate();
-//   this._photoElement = this._element.querySelector('.element__photo');
-//   this._elementLike = this._element.querySelector('.element__like');
-//   this._elementDelete = this._element.querySelector('.element__delete')
-
-//   this._photoElement.src = this._url;
-//   this._photoElement.alt = this._title;
-//   this._element.querySelector('.element__title').textContent = this._title;
-
-//   this._setEventListeners();
-
-//   return this._element;
-// }
-
-// _setEventListeners() {
-//   // this._elementLike.addEventListener('click', () => this._changeLike());
-//   // this._elementDelete.addEventListener('click', () => this._deleteCard());
-//   this._photoElement.addEventListener('click', () => this._openImagePopup());
-// }

@@ -25,9 +25,6 @@ export const initialCards = [
   },
 ];
 
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-
 export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
