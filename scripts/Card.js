@@ -2,25 +2,25 @@ class Card {
   constructor({ name, link }, elementTemplate, openImagePopup) {
     this._name = name;
     this._link2photo = link;
-    this._elementTemplate = elementTemplate;
+    this._elementTemplate = document.querySelector(elementTemplate).content;;
     this._openPopup = openImagePopup;
   }
 
   _getTemplate() {
-    return this._elementTemplate.querySelector(".element").cloneNode(true);
+    return this._elementTemplate.querySelector('.element').cloneNode(true);
   }
 
   _setName() {
-    this._newCard.querySelector(".element__title").textContent = this._name;
+    this._newCard.querySelector('.element__title').textContent = this._name;
   }
 
   _getLink() {
-    this._userCardElementPhoto = this._newCard.querySelector(".element__photo");
+    this._userCardElementPhoto = this._newCard.querySelector('.element__photo');
     this._userCardElementPhoto.src = this._link2photo;
   }
 
   _getAlt() {
-    this._userCardElementPhoto = this._newCard.querySelector(".element__photo");
+    this._userCardElementPhoto = this._newCard.querySelector('.element__photo');
     this._userCardElementPhoto.alt = this._name;
   }
 
@@ -30,7 +30,7 @@ class Card {
   }
 
   _likeCard() {
-    this._addLikeSign.classList.toggle("element__like_active");
+    this._likeSign.classList.toggle('element__like_active');
   }
 
   _photoPopup() {
@@ -38,24 +38,24 @@ class Card {
   }
 
   _setEventListeners() {
-    this._delButton.addEventListener("click", () => {
+    this._delButton.addEventListener('click', () => {
       this._deleteCard();
     });
 
-    this._addLikeSign.addEventListener("click", () => {
+    this._likeSign.addEventListener('click', () => {
       this._likeCard();
     });
 
-    this._image.addEventListener("click", () => {
+    this._image.addEventListener('click', () => {
       this._photoPopup();
     });
   }
 
   getView() {
     this._newCard = this._getTemplate();
-    this._delButton = this._newCard.querySelector(".element__trash");
-    this._addLikeSign = this._newCard.querySelector(".element__like");
-    this._image = this._newCard.querySelector(".element__photo");
+    this._delButton = this._newCard.querySelector('.element__trash');
+    this._likeSign = this._newCard.querySelector('.element__like');
+    this._image = this._newCard.querySelector('.element__photo');
 
     this._setName();
     this._getLink();

@@ -1,5 +1,3 @@
-import { validationConfig } from "./cardsArray.js";
-
 class FormValidator {
   constructor(config, formElement) {
     this._config = config;
@@ -7,12 +5,23 @@ class FormValidator {
     this._formInputs = Array.from(
       this._formElement.querySelectorAll(this._config.inputSelector)
     );
-    this._inputElementsErrs = Array.from(
-      this._formElement.querySelectorAll(this._config.inputErrorClass)
-    );
     this._buttonSubmit = this._formElement.querySelector(
       this._config.submitButtonSelector
     );
+  }
+
+  clearError() {
+    const formInputsList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
+    formInputsList.forEach((input) => {
+      input.classList.remove(this._config.inputErrorClass);
+    });
+
+    const formSpansList = Array.from(
+      this._formElement.querySelectorAll(this._config.inputError)
+    );
+    formSpansList.forEach((span) => {
+      span.textContent = "";
+    });
   }
 
   _showInputError(input) {
@@ -38,28 +47,14 @@ class FormValidator {
     }
   }
 
-  _compareButtonState() {
-    this._infoTitle = document.querySelector(this._config.infoTitle);
-    this._infoSubtitle = document.querySelector(this._config.infoSubtitle);
-    this._infoDataArr = [
-      this._infoTitle.textContent,
-      this._infoSubtitle.textContent,
-    ];
-    this._inputDataArr = this._formInputs.map((el) => el.value);
-
-    return (
-      JSON.stringify(this._inputDataArr) === JSON.stringify(this._infoDataArr)
-    );
-  }
-
   _hasInvalidInput() {
     return this._formInputs.some((input) => {
-      return !input.validity.valid || input.value.length < 2;
+      return !input.validity.valid;
     });
   }
 
   toggleButtonState() {
-    if (this._hasInvalidInput() || this._compareButtonState()) {
+    if (this._hasInvalidInput()) {
       this._buttonSubmit.classList.add(this._config.inactiveButtonClass);
       this._buttonSubmit.disabled = true;
     } else {
