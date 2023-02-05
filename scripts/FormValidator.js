@@ -11,10 +11,7 @@ class FormValidator {
   }
 
   clearError() {
-    const formInputsList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-    formInputsList.forEach((input) => {
-      input.classList.remove(this._config.inputErrorClass);
-    });
+    this._formInputs.forEach((input) => this._hideInputError(input));
 
     const formSpansList = Array.from(
       this._formElement.querySelectorAll(this._config.inputError)

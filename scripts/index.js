@@ -87,6 +87,7 @@ function handleTheFormCardSubmitHandler(event) {
 additionButton.addEventListener("click", () => {
   cardPopupForm.reset();
   formCardValidator.clearError();
+  formCardValidator.toggleButtonState();
   openPopup(cardPopup);
 });
 
@@ -98,7 +99,7 @@ function openPopup(popup) {
 }
 
 function closePopupWithEsc(evt) {
-  if (evt.keyCode === 27) {
+  if (evt.key === "Escape") {
     const openPopup = document.querySelector(".popup_opened");
     closePopup(openPopup);
   }
@@ -130,11 +131,9 @@ function handleTheFormInfoSubmitHandler(event) {
   profileSubtitle.textContent = infoPopupInputDescription.value;
 
   closePopup(infoPopup);
-  infoPopupForm.reset();
 }
 
 editionButton.addEventListener("click", () => {
-  infoPopupForm.reset();
   formInfoValidator.clearError();
   editInfoForm(infoPopup);
 });
