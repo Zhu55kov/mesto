@@ -13,12 +13,12 @@ class FormValidator {
   clearError() {
     this._formInputs.forEach((input) => this._hideInputError(input));
 
-    const formSpansList = Array.from(
-      this._formElement.querySelectorAll(this._config.inputError)
-    );
-    formSpansList.forEach((span) => {
-      span.textContent = "";
-    });
+    // const formSpansList = Array.from(
+    //   this._formElement.querySelectorAll(this._config.inputError)
+    // );
+    // formSpansList.forEach((span) => {
+    //   span.textContent = "";
+    // });
   }
 
   _showInputError(input) {

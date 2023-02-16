@@ -1,4 +1,6 @@
 import Card from "./Card.js";
+import Popup from "./Popup.js";
+import PopupWithForm from "./PopupWithForm.js";
 import { initialCards } from "./cardsArray.js";
 import { validationConfig } from "./cardsArray.js";
 import FormValidator from "./FormValidator.js";
@@ -88,42 +90,42 @@ additionButton.addEventListener("click", () => {
   cardPopupForm.reset();
   formCardValidator.clearError();
   formCardValidator.toggleButtonState();
-  openPopup(cardPopup);
+  // cardPopupClass.open();
 });
 
 cardPopupForm.addEventListener("submit", handleTheFormCardSubmitHandler);
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupWithEsc);
-}
+// function openPopup(popup) {
+//   popup.classList.add("popup_opened");
+//   document.addEventListener("keydown", closePopupWithEsc);
+// }
 
-function closePopupWithEsc(evt) {
-  if (evt.key === "Escape") {
-    const openPopup = document.querySelector(".popup_opened");
-    closePopup(openPopup);
-  }
-}
+// function closePopupWithEsc(evt) {
+//   if (evt.key === "Escape") {
+//     const openPopup = document.querySelector(".popup_opened");
+//     closePopup(openPopup);
+//   }
+// }
 
-function closePopupWithOverlay(evt) {
-  if (evt.target.classList.contains("popup_opened")) {
-    closePopup(evt.target);
-  }
-}
+// function closePopupWithOverlay(evt) {
+//   if (evt.target.classList.contains("popup_opened")) {
+//     closePopup(evt.target);
+//   }
+// }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupWithEsc);
 }
 
-closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
-});
+// closeButtons.forEach((button) => {
+//   const popup = button.closest(".popup");
+//   button.addEventListener("click", () => closePopup(popup));
+// });
 
-popups.forEach((popup) => {
-  popup.addEventListener("mouseup", closePopupWithOverlay);
-});
+// popups.forEach((popup) => {
+//   popup.addEventListener("mouseup", closePopupWithOverlay);
+// });
 
 function handleTheFormInfoSubmitHandler(event) {
   event.preventDefault();
@@ -153,3 +155,15 @@ formInfoValidator.enableValidation();
 
 const formCardValidator = new FormValidator(validationConfig, cardPopupForm);
 formCardValidator.enableValidation();
+
+const popupWF = new PopupWithForm(selector, () => {
+  popupWF.popupSubmitCb(open);
+
+});
+
+
+
+
+
+
+
