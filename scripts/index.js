@@ -4,6 +4,7 @@ import PopupWithForm from "./PopupWithForm.js";
 import { initialCards } from "./cardsArray.js";
 import { validationConfig } from "./cardsArray.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 
 const page = document.querySelector(".page");
 
@@ -55,14 +56,14 @@ function createCard(cardObject, templateSelector, popup) {
   return newCard.getView();
 }
 
-initialCards.forEach((el) => {
-  const readyCard = createCard(el, "#element", openImagePopup);
-  addCard(elementsPlaces, readyCard);
-});
+// initialCards.forEach((el) => {
+//   const readyCard = createCard(el, "#element", openImagePopup);
+//   addCard(elementsPlaces, readyCard);
+// });
 
-function addCard(place, card) {
-  place.prepend(card);
-}
+// function addCard(place, card) {
+//   place.prepend(card);
+// }
 
 function editInfoForm(popup) {
   infoPopupInputName.value = profileTitle.textContent;
@@ -70,30 +71,26 @@ function editInfoForm(popup) {
   openPopup(popup);
 }
 
-function handleTheFormCardSubmitHandler(event) {
-  event.preventDefault();
+function handleTheFormCardSubmitHandler(value) {
 
   const myCard = {
-    name: cardPopupInputName.value,
-    link: cardPopupInputDescription.value,
+    name: value.inputName,
+    link: value.inputDescription
   };
-
-  closePopup(cardPopup);
+  const userCard = 
+  popupWF.close();
   cardPopupForm.reset();
   formCardValidator.toggleButtonState();
-
-  const readyCard = createCard(myCard, "#element", openImagePopup);
-  addCard(elementsPlaces, readyCard);
 }
 
 additionButton.addEventListener("click", () => {
   cardPopupForm.reset();
   formCardValidator.clearError();
+  popupWF.open();
   formCardValidator.toggleButtonState();
-  // cardPopupClass.open();
 });
 
-cardPopupForm.addEventListener("submit", handleTheFormCardSubmitHandler);
+// cardPopupForm.addEventListener("submit", handleTheFormCardSubmitHandler);
 
 // function openPopup(popup) {
 //   popup.classList.add("popup_opened");
@@ -156,14 +153,16 @@ formInfoValidator.enableValidation();
 const formCardValidator = new FormValidator(validationConfig, cardPopupForm);
 formCardValidator.enableValidation();
 
-const popupWF = new PopupWithForm(selector, () => {
-  popupWF.popupSubmitCb(open);
+const popupWF = new PopupWithForm('.card-popup', handleTheFormCardSubmitHandler);
 
-});
+function renderCard(item, className) {
+  const card = new Card(item, '#element', openImagePopup);
+  const cardElement = card.getView();
+  className.addItem(cardElement);
+}
 
-
-
-
+const cardList = new Section({ items: initialCards, renderer: renderCard }, '.elements');
+cardList.renderItems(cardList)
 
 
 
